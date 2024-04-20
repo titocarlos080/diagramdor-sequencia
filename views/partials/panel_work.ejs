@@ -1,0 +1,106 @@
+<div id="content-panel_work" class="content-panel_work">
+    <div id="myDiagramDiv" style="width:100%; height:600px;"></div>
+    <link href="https://unpkg.com/gojs/release/go.css" rel="stylesheet"/>
+
+    <script src="https://unpkg.com/gojs/release/go.js"></script>
+    <script>
+
+        // Inicializa el diagrama
+        var $ = go.GraphObject.make;
+        var myDiagram =
+            $(go.Diagram, "myDiagramDiv",
+                {
+                    "undoManager.isEnabled": true // Habilita el gestor de deshacer/rehacer
+                });
+
+        // Define la plantilla de nodo (Lifeline) editable
+        myDiagram.groupTemplate =
+            $(go.Group, "Vertical",
+                {
+                    locationSpot: go.Spot.Bottom,
+                    locationObjectName: "HEADER",
+                    minLocation: new go.Point(0, 0),
+                    maxLocation: new go.Point(9999, 0),
+                    selectionObjectName: "HEADER"
+                },
+                $(go.Panel, "Auto",
+                    { name: "HEADER" },
+                    $(go.Shape, "Rectangle",
+                        {
+                            fill: $(go.Brush, "Linear", { 0: "#bbdefb", 1: go.Brush.darkenBy("#bbdefb", 0.1) }),
+                            stroke: null
+                        }),
+                    $(go.TextBlock,
+                        {
+                            margin: 5,
+                            font: "400 10pt Source Sans Pro, sans-serif",
+                            editable: true // Permite la edición del texto
+                        },
+                        new go.Binding("text", "text").makeTwoWay()) // Enlaza el texto con los datos del modelo
+                ),
+                $(go.Shape,
+                    {
+                        figure: "LineV",
+                        fill: null,
+                        stroke: "gray",
+                        strokeDashArray: [3, 3],
+                        width: 1,
+                        alignment: go.Spot.Center,
+                        portId: "",
+                        fromLinkable: true,
+                        fromLinkableDuplicates: true,
+                        toLinkable: true,
+                        toLinkableDuplicates: false,
+                        cursor: "pointer"
+                    },
+                    new go.Binding("height", "duration", computeLifelineHeight))
+            );
+
+        // Define la plantilla de enlace (Message) editable
+        myDiagram.linkTemplate =
+            $(go.Link,
+                { routing: go.Link.Ortogonal },
+                $(go.Shape, { stroke: "black" }),
+                $(go.Shape, { toArrow: "OpenTriangle", stroke: "black" }),
+                $(go.TextBlock,
+                    {
+                        font: "400 9pt Source Sans Pro, sans-serif",
+                        segmentIndex: 0,
+                        segmentOffset: new go.Point(NaN, NaN),
+                        isMultiline: true,
+                        editable: true // Permite la edición del texto
+                    },
+                    new go.Binding("text", "text").makeTwoWay()) // Enlaza el texto con los datos del modelo
+            );
+
+        // Define la función para calcular la altura de la Lifeline
+        function computeLifelineHeight(duration) {
+            return 200; // Altura fija para simplificar el ejemplo
+        }
+
+        // Define los datos del modelo
+        var nodeDataArray = [
+            {"key":"Fred", "text":"Fred: Patron", "isGroup":true, "loc":"0 0", "duration":9},
+            {"key":"Bob", "text":"Bob: Waiter", "isGroup":true, "loc":"100 0", "duration":9},
+            {"key":"Hank", "text":"Hank: Cook", "isGroup":true, "loc":"200 0", "duration":9},
+            {"key":"Renee", "text":"Renee: Cashier", "isGroup":true, "loc":"300 0", "duration":9}
+        ];
+
+        var linkDataArray = [
+            {"from":"Fred", "to":"Bob", "text":"order", "time":1},
+            {"from":"Bob", "to":"Hank", "text":"order food", "time":2},
+            {"from":"Bob", "to":"Fred", "text":"serve drinks", "time":3},
+            {"from":"Hank", "to":"Bob", "text":"finish cooking", "time":5},
+            {"from":"Bob", "to":"Fred", "text":"serve food", "time":6},
+            {"from":"Fred", "to":"Renee", "text":"pay", "time":8}
+        ];
+
+        // Ordena los enlaces (mensajes) según el tiempo
+        linkDataArray.sort(function(a, b) {
+            return a.time - b.time;
+        });
+
+        // Establece los datos del modelo en el diagrama
+        myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+    </script>
+</div>
