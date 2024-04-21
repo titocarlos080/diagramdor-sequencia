@@ -5,7 +5,7 @@ import path from "path";
 import { Server as SocketIOServer } from "socket.io";
 import { PanelRuta } from "./src/sockets/panelSocketServer";
 import { router } from "./src/Routes/routes";
- 
+  
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
