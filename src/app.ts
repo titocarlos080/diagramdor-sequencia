@@ -3,8 +3,8 @@ import express from "express";
 import http from "http";
 import path from "path";
 import { Server as SocketIOServer } from "socket.io";
-import { PanelRuta } from "./src/sockets/panelSocketServer";
-import {Rutas  } from "./src/routes/routes"
+import { PanelRuta } from "./sockets/panelSocketServer";
+import {Rutas  } from "./routes"
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
