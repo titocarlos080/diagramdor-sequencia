@@ -1,15 +1,16 @@
 import { Server, Socket } from "socket.io";
 import { PanelController } from "../controllers/PanelControlller";
-   
-class PanelRuta{
 
- static configuracionPanelSocket (io: Server)  {
-        io.on("connection",(socket:Socket)=>{
-            socket.on("connectado",(data)=>{ console.log("Mensaje de Cliente",data);
-            const msg= "Un cliente conectado"+data.data
-socket.broadcast.emit("respuesta",{msg});    
-        })  
- 
+class PanelRuta {
+
+    static configuracionPanelSocket(io: Server) {
+        io.on("connection", (socket: Socket) => {
+            socket.on("connectado", (data) => {
+                console.log("Mensaje de Cliente", data);
+                const msg = "Un cliente conectado" + data.data;
+                socket.broadcast.emit("respuesta", { msg });
+            })
+
         })
 
 
@@ -19,11 +20,11 @@ socket.broadcast.emit("respuesta",{msg});
         //     socket.on('moviendoData', () => PanelController.moviendoData(socket))
         //     socket.on('disconnect', () => PanelController.desconeccionCliente(socket))
         // })
-        
+
     }
 
 }
 
-export {PanelRuta}
+export { PanelRuta }
 
 
