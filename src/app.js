@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require("http");
 const path = require("path");
+
 const { Server: SocketIOServer } = require("socket.io");
 const { PanelRuta } = require("./sockets/panelSocketServer");
 const { Rutas } = require("./routes");
@@ -27,3 +28,7 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
+// sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+
+
+//yG0ByAGD3KZBKYks

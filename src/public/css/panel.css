@@ -28,12 +28,15 @@ body{
  
 .sidebar_left{
 width:15% ;
+background-color: #d4cccc;
+
 }
 .panel_work{
 width: 70%;
 position: relative;
 }
 .sidebar_right{
+    background-color: #d4cccc;
     width:15% ;
 
 }

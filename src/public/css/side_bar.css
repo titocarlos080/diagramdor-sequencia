@@ -2,16 +2,27 @@
 .content-sidebar_left{
     width: 100%;
     z-index: 1;
-    background-color: #ffff;
+    background-color: #d4cccc;
     border-right: #000 2px solid;
     height: 100%;
  }
-
+.content_btn{
+    display: flex;
+    margin: 2px;
+    padding: 2px;
+    flex-wrap: wrap;
+}
+.content_btn>button{
+  
+    margin: 2px;
+    padding: 2px;
+   
+}
 /* sidebar_right */
 .content-sidebar_right{
     width: 100%;
     height: 100%;
     border-left: #000 2px solid;
     z-index: 2;
-    background-color: #ffff;
+    background-color: #d4cccc;
 }

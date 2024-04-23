@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+</head>
+
+<body>
+    <div class="welcome">
+        <h1>Bienvenido a nuestra plataforma</h1>
+        <div class="diagram-animation"></div>
+        <div class="diagram-animation"></div>
+        <div class="diagram-animation"></div>
+        <button id="openModalBtn">Abrir Modal</button>
+    </div>
+
+
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div>
+                <span class="close">&times;</span>
+            </div>
+            <form class="form-login" action="/login" method="post">
+                <input type="text" name="text" id="text">
+                <input type="email" name="email" id="email">
+                <button type="submit"> Login</button>
+            </form>
+
+        </div>
+    </div>
+    v
+
+    <script src="script.js"></script>
+    <script>
+        // Obtener el botón para abrir el modal
+        var openModalBtn = document.getElementById("openModalBtn");
+
+        // Obtener el modal
+        var modal = document.getElementById("myModal");
+
+        // Obtener el botón para cerrar el modal
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        // Cuando se hace clic en el botón, abrir el modal
+        openModalBtn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // Cuando se hace clic en el botón para cerrar el modal, ocultarlo
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Cuando el usuario haga clic fuera del modal, cerrarlo
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+
+
+
+
+
+
+        // Obtener todos los elementos con la clase 'diagram-animation'
+        const diagrams = document.querySelectorAll('.diagram-animation');
+
+        // Iterar sobre cada elemento y establecer una posición aleatoria inicial
+        diagrams.forEach(diagram => {
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            diagram.style.left = `${randomX}px`;
+            diagram.style.top = `${randomY}px`;
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+myDiagram.groupTemplateMap.add("ImageGroup",
+  $(go.Group, "Vertical",
+    {
+      locationSpot: go.Spot.Bottom,
+      locationObjectName: "HEADER",
+      minLocation: new go.Point(0, 0),
+      maxLocation: new go.Point(9999, 0),
+      selectionObjectName: "HEADER",
+    },
+    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+    $(go.Panel, "Auto",
+      { name: "HEADER" },
+      $(go.Picture, { width: 80, height: 70, source: "imagen/imagen.png" }), // Cambia la
+      myDiagram.nodeTemplateMap.add("automensaje",
+        $(go.Node, "Auto",
+          { selectable: true, resizable: true },
+          $(go.Shape, "Rectangle",
+            { fill: "transparent", stroke: "black", margin: 0 },
+            new go.Binding("width", "width").makeTwoWay(),
+            new go.Binding("height", "height").makeTwoWay()
+          ),
+          $(go.Picture,
+            { width: 50, height: 50, source: "imagen/automensaje.png" },
+
+          ),
+          $(go.TextBlock,
+            {
+              margin: new go.Margin(1, 0, 0, 0), editable: true, font: "bold 12px"
+
+            }
+          )
+          ,
+          function addnodedataMsgRet() { //crea el retry
+            // Iniciar una transacción para agregar un nuevo nodo 
+            myDiagram.startTransaction("addLoopNode");
+            var key = generateUniqueKey();
+            const newdata = {
+              key: key.toString(),
+              category: "automensaje",
+              loc: "80 0",
+              text: "Retry",
+              width: 40,
+              height: 40
+            };
+            // Finalizar la transacción
+            myDiagram.model.addNodeData(newdata);
+            myDiagram.commitTransaction("add node");
+            //myDiagram.commitTra
+            function addnodedataUSUARIO() { //crea el Imagegroup form - entidad - control
+              // Iniciar una transacción para agregar un nuevo nodo de bucle
+              myDiagram.startTransaction("addLoopNode");
+              myDiagram.startTransaction("add node");
+              var key = generateUniqueKey();
+
+              var newname = "new:" + key.toString();
+              const newdata = {
+                key: key,
+                category: "ImageGroup",
+                text: newname,
+                isGroup: true,
+                loc: "90 0",
+                duration: 13
+              };
+            }
+          }
+        ))
+
+
+    )

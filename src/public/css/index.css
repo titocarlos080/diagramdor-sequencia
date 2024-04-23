@@ -1,0 +1,163 @@
+ body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     background-color: #f0f0f0;
+ }
+
+ .welcome {
+     text-align: center;
+     padding: 50px;
+ }
+
+ .diagram-animation {
+     width: 200px;
+     height: 200px;
+     background-color: #6ea2b5;
+     margin: 20px auto;
+     border: 2px solid #ccc;
+     border-radius: 50%;
+     animation-duration: 3s;
+     /* Cambia la duración de la animación */
+     animation-direction: alternate;
+     /* Cambia la dirección de la animación */
+     animation-timing-function: ease-in-out;
+     /* Cambia la función de temporización de la animación */
+     animation-iteration-count: infinite;
+     /* Repetición infinita de la animación */
+ }
+
+ /* Define diferentes animaciones para cada elemento */
+ .diagram-animation:nth-child(1) {
+     animation-name: rotate1;
+
+ }
+
+ .diagram-animation:nth-child(2) {
+     animation-name: rotate2;
+ }
+
+ .diagram-animation:nth-child(3) {
+     animation-name: rotate3;
+ }
+
+ @keyframes rotate1 {
+     from {
+         transform: rotate(0deg);
+     }
+
+     to {
+         transform: rotate(360deg);
+     }
+ }
+
+ @keyframes rotate2 {
+     from {
+         transform: rotate(0deg);
+     }
+
+     to {
+         transform: rotate(180deg);
+     }
+ }
+
+ @keyframes rotate3 {
+     from {
+         transform: rotate(0deg);
+     }
+
+     to {
+         transform: rotate(-360deg);
+     }
+ }
+
+
+
+ button {
+     padding: 10px 20px;
+     background-color: #007bff;
+     color: #ffffff;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+
+ button:hover {
+     background-color: #0056b3;
+ }
+
+ /* Estilos del botón para abrir el modal */
+ #openModalBtn {
+     background-color: #4CAF50;
+     color: white;
+     padding: 10px 20px;
+     border: none;
+     cursor: pointer;
+ }
+
+ /* Estilos del modal */
+ .modal {
+     display: none;
+     /* Oculta el modal por defecto */
+     position: fixed;
+     z-index: 1;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     background-color: rgba(0, 0, 0, 0.5);
+     /* Fondo oscuro semi-transparente */
+ }
+
+ /* Estilos del contenido del modal */
+ .modal-content {
+     display: flex;
+     flex-direction: column;
+
+     background-color: #fefefe;
+     margin: 15% auto;
+     padding: 20px;
+     border: 1px solid #888;
+     width: 50%;
+     background: transparent;
+ }
+
+ /* Estilos del botón para cerrar el modal */
+ .close {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+ }
+
+ .close:hover,
+ .close:focus {
+     color: #ff0000;
+     text-decoration: none;
+     font-size: 40px;
+     cursor: pointer;
+ }
+
+ .form-login {
+
+     display: flex;
+     flex-direction: column;
+
+ }
+
+ .form-login >input {
+    
+    outline: none;
+    margin: 5px;
+    background: #f0f1f0;
+    height:  20px;
+   
+}
+
+ .form-login >input:focus{
+    background: transparent;
+    color: #f0f0f0;
+    
+ }

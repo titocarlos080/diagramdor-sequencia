@@ -1,11 +1,22 @@
+
 const PanelRuta = {
+    
     configuracionPanelSocket: (io) => {
         io.on("connection", (socket) => {
-            socket.on("connectado", (data) => {
+
+            socket.on("cliente:connectado", (data) => {
                 console.log("Mensaje de Cliente", data);
-                const msg = "Un cliente conectado" + data.data;
-                socket.broadcast.emit("respuesta", { msg });
+             
+               // socket.broadcast.emit("servidor:respuesta", { msg });
+
             });
+            socket.on("cliente:datosMovidos", (datosMovidos) => {
+            
+                socket.broadcast.emit("sevidor:redibujarDiagrama", (datosMovidos))
+            });
+
+
+
         });
     }
 }
