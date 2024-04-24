@@ -11,9 +11,18 @@
         <li><button onclick="exportC()">C++</button></li>
       </ul>
     </div>
-    
     <div class="logo">
-      <a href="#">Logo</a>
+
+      <% if (user) { %>
+        <form action="/logout" method="post">
+          <span>Hola, <%= user.user_name %>!</span>
+          <button type="submit" >Cerrar sesión</button>
+        </form>
+
+        <% } else { %>
+          <span>No has iniciado sesión.</span>
+          <!-- Aquí puedes agregar el formulario de inicio de sesión -->
+          <% } %>
     </div>
   </div>
 

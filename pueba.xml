@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <class>GraphLinksModel</class>
+  <nodeDataArray>
+    <key number="true">85</key>
+    <category>Interface</category>
+    <text>new:85</text>
+    <isGroup boolean="true">true</isGroup>
+    <loc>122 0</loc>
+    <duration number="true">13</duration>
+  </nodeDataArray>
+  <nodeDataArray>
+    <key number="true">-2</key>
+    <category>Controlador</category>
+    <text>new:85</text>
+    <isGroup boolean="true">true</isGroup>
+    <loc>329 0</loc>
+    <duration number="true">13</duration>
+  </nodeDataArray>
+  <nodeDataArray>
+    <key number="true">-3</key>
+    <category>Actor</category>
+    <text>new:85</text>
+    <isGroup boolean="true">true</isGroup>
+    <loc>399 0</loc>
+    <duration number="true">13</duration>
+  </nodeDataArray>
+  <nodeDataArray>
+    <key number="true">-4</key>
+    <category>Entidad</category>
+    <text>new:85</text>
+    <isGroup boolean="true">true</isGroup>
+    <loc>6 0</loc>
+    <duration number="true">13</duration>
+  </nodeDataArray>
+  <nodeDataArray>
+    <key number="true">-5</key>
+    <category>Entidad</category>
+    <text>new:85</text>
+    <isGroup boolean="true">true</isGroup>
+    <loc>222 0</loc>
+    <duration number="true">13</duration>
+  </nodeDataArray>
+  <linkDataArray empty-array="true"></linkDataArray>
+</root>

@@ -1,10 +1,15 @@
+const { Document } = require("../models/Document");
 
 const PanelController = {
 
 
-    index: (req, res) => {
+    index: async (req, res) => {
     
-        res.render("panel/panel", { title: "Digrama de secuencia" })
+       const documents = await Document.getDocuments(req.session.userId)
+        console.log("--------------------------------------------------------");
+        console.log(documents);
+        console.log("--------------------------------------------------------");
+        res.render("panel/panel", { title: "Digrama de secuencia" , user: req.session.user ,documents:documents})
     },
     enviarData: (data,) => {
         console.log("una data recibida a /panel " + data);

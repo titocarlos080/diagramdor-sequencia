@@ -92,7 +92,7 @@ function abrirProyecto() {
     // Crea un nuevo elemento de entrada de archivo
     var fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.json'; 
+    fileInput.accept = '.json';
     fileInput.style.display = 'none'; // Oculta el elemento de entrada de archivo
 
     // Agrega el elemento al documento
@@ -117,27 +117,34 @@ function abrirProyecto() {
     fileInput.click();
 }
 
-
-function guardaProyecto() {
+async function guardaProyecto() {
     const data = myDiagram.model.toJson();
-    const blob = new Blob([data], { type: 'application/json' });
+    const nombreProyecto = prompt("Ingrese el nombre del proyecto:");
 
-    // Crea un enlace de descarga
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'proyecto.json';
-    a.style.display = 'none';
+    try {
+        // Guarda el proyecto en formato JSON en un archivo descargable
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${nombreProyecto}.json`;
+        a.style.display = 'none';
 
-    // Agrega el enlace al cuerpo del documento y haz clic en él para iniciar la descarga
-    document.body.appendChild(a);
-    a.click();
+        document.body.appendChild(a);
+        a.click();
 
-    // Elimina el enlace después de la descarga
-    URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        // Guarda el proyecto en MongoDB
+        await guardarMongo(data, nombreProyecto);
+        window.location.reload();
+
+    } catch (error) {
+        console.error('Error al guardar el proyecto:', error);
+        alert('Error al guardar el proyecto.');
+    }
 }
-
 async function crearProyecto() {
     console.log(myDiagram.model.toJson());
     if (myDiagram.model.nodeDataArray.length > 0 || myDiagram.model.linkDataArray.length > 0) {
@@ -150,7 +157,7 @@ async function crearProyecto() {
 
 }
 function exportXML() {
-const data=myDiagram.model.toJson()
+    const data = myDiagram.model.toJson()
 }
 function exportJava() {
     const data = myDiagram.model.toJson();
@@ -169,7 +176,7 @@ function exportJava() {
             return ''; // O cualquier valor predeterminado que desees en caso de que node.text sea undefined
         }
     });
-    
+
     // Crea la clase Java
     let javaCode = "public class MyClass {\n";
 
@@ -209,4 +216,54 @@ function exportJava() {
 
 function exportC() {
 
+}
+
+async function guardarMongo(data, nombreProyecto) {
+    const datas = {
+        data: data,
+        nombreProyecto: nombreProyecto
+    }
+
+    await fetch("/save_document", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datas)
+    }).then(response => {
+        if (response.ok) {
+            console.log("Documento guardado exitosamente");
+        } else {
+            console.error("Error al guardar el documento:", response.status);
+        }
+    }).catch(error => {
+        console.error("Error al guardar el documento:", error);
+    });
+
+}
+ 
+
+async function cargarData(proyectoId) {
+    try {
+        const response = await fetch(`/get_document/${proyectoId}`);
+        
+        // Check if the response is OK
+        if (!response.ok) {
+            throw new Error('La solicitud no fue exitosa');
+        }
+        
+        // Parse response JSON
+        const data = await response.json();
+
+        console.log(data);
+        // Here you can do something with the received data, like assigning it to your diagram
+        myDiagram.model = go.Model.fromJson(data.data);
+      
+        console.log("llega");
+    } catch (error) {
+        console.error('Error al obtener los datos del documento:', error);
+        // Alert the user or handle the error accordingly
+        // For instance, you can throw the error if it's critical
+        // throw error;
+    }
 }
