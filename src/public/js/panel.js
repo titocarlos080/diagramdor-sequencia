@@ -3,7 +3,7 @@
 
 // Crea una instancia de socket.io
  
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect();
 // Define una función para enviar los datos al servidor
 function sendDataToServer(data) {
    
@@ -45,7 +45,9 @@ function crearSala() {
     // Verificar si el nombre de la sala es válido
     if (nombreSala && nombreSala.trim() !== '') {
       const userId = document.getElementById("userId").value
+
       socket.emit('cliente:crearSala', nombreSala, userId);
+      localStorage.setItem("SalaActual", SalaActual);
 
     } else {
       alert('Por favor, ingrese un nombre válido para la sala.');
@@ -87,6 +89,7 @@ function UniendoSala() {
 
     // Verificar si el nombre de la sala es válido
     if (nombreSalaUnir && nombreSalaUnir.trim() !== '') {
+      localStorage.setItem("SalaActual", nombreSalaUnir);
       socket.emit('cliente:unirSala', nombreSalaUnir);
     } else {
       alert('Por favor, ingrese un nombre válido para la sala.');
