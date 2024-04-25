@@ -1,5 +1,5 @@
 
-
+ 
 async function agregarActor() {
     // Iniciar una transacción para agregar un nuevo nodo de bucle
 
@@ -241,24 +241,24 @@ async function guardarMongo(data, nombreProyecto) {
     });
 
 }
- 
+
 
 async function cargarData(proyectoId) {
     try {
         const response = await fetch(`/get_document/${proyectoId}`);
-        
+
         // Check if the response is OK
         if (!response.ok) {
             throw new Error('La solicitud no fue exitosa');
         }
-        
+
         // Parse response JSON
         const data = await response.json();
 
         console.log(data);
         // Here you can do something with the received data, like assigning it to your diagram
         myDiagram.model = go.Model.fromJson(data.data);
-      
+
         console.log("llega");
     } catch (error) {
         console.error('Error al obtener los datos del documento:', error);
@@ -267,3 +267,5 @@ async function cargarData(proyectoId) {
         // throw error;
     }
 }
+
+

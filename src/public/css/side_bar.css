@@ -1,28 +1,95 @@
 /* sidebar_left */
-.content-sidebar_left{
+.content-sidebar_left {
     width: 100%;
     z-index: 1;
     background-color: #d4cccc;
     border-right: #000 2px solid;
     height: 100%;
- }
-.content_btn{
+}
+
+.content_btn {
     display: flex;
     margin: 2px;
     padding: 2px;
     flex-wrap: wrap;
 }
-.content_btn>button{
-  
+
+.content_btn>button {
+
     margin: 2px;
     padding: 2px;
-   
+
 }
+
 /* sidebar_right */
-.content-sidebar_right{
+.content-sidebar_right {
     width: 100%;
     height: 100%;
     border-left: #000 2px solid;
     z-index: 2;
     background-color: #d4cccc;
+}
+
+.content-buttom-sala {
+    padding: 5px;
+}
+
+.content-buttom-sala>button {
+    padding: 5px;
+    border-radius: 12px;
+    background: #21c3b3;
+    border: none;
+}
+
+
+.documents {
+
+    padding: 5px;
+}
+
+.project {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 12px;
+
+    background-color: rgb(35, 197, 41) ;
+}
+button:hover {
+     background-color: #87c689; /* Cambia el color de fondo */
+     border: 2px solid #4CAF50; /* Cambia el color del borde */
+    border-radius: 5px; /* Añade bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Añade sombra */
+    transition: all 0.3s ease; /* Añade una transición suave */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+/* Cambia el estilo del botón cuando está deshabilitado */
+button:disabled:hover {
+    background-color: #cccccc;
+    color: #666666;
+     border: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Cambia el estilo del botón cuando está activo */
+button:active {
+    background-color: #94c897;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project >button{
+    padding: 5px;
+    border: none;
+
+}
+
+.project:hover {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px;
+    padding: 5px;
+    background-color: #8bdaa0bb;
 }

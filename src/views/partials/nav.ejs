@@ -15,8 +15,9 @@
 
       <% if (user) { %>
         <form action="/logout" method="post">
-          <span>Hola, <%= user.user_name %>!</span>
-          <button type="submit" >Cerrar sesión</button>
+          <span  >Hola, <%= user.user_name %>!</span>
+          <input style="display: none;" id="userId" value=" <%= user.user_id %>"> 
+          <button class="btnCerrarSesion" type="submit" >Cerrar sesión</button>
         </form>
 
         <% } else { %>

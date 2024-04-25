@@ -21,6 +21,34 @@ CREATE TABLE invitations (
 	FOREIGN KEY (userreceptor_id) REFERENCES users(user_id),
     FOREIGN KEY (project_id) REFERENCES projects(project_id)
 );
+CREATE TABLE salas (
+    sala_id SERIAL PRIMARY KEY,
+    sala_name VARCHAR(50) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+
+
+
+
+
+
+CREATE USER tito WITH PASSWORD '123';
+GRANT ALL PRIVILEGES ON DATABASE diagrama TO tito;
+
+GRANT CONNECT ON DATABASE diagrama TO tito;
+GRANT USAGE ON SCHEMA public TO tito;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO tito;
+
+
+
+
+
+
+
+
+
 
  -- Insertar usuarios
 INSERT INTO users (user_name, user_email, user_pass) VALUES

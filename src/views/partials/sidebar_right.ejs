@@ -1,8 +1,30 @@
 <div class="content-sidebar_right">
-    <div class="documents">
-        <% documents.forEach(project => { %>
-            <p><%= project.project_name %></p> <!-- Aquí cerré correctamente la etiqueta -->
-            <button onclick="cargarData('<%= project.project_id %>')" >Cargar</button>
-        <% }) %>
+    <div class="content-buttom-sala">
+        <button onclick="crearSala()">Crear Sala</button>
+        <button onclick="UniendoSala()">Unirse a Sala</button>
     </div>
+    <div class="documents">
+
+        <% documents.forEach(project=> { %>
+            <div class="project">
+                <p>
+                    <%= project.project_name %>
+                </p> <!-- Aquí cerré correctamente la etiqueta -->
+                <button onclick="cargarData('<%= project.project_id %>')">Cargar</button>
+
+            </div>
+            <% }) %>
+    </div>
+    <div class="documents">
+        <span>Mis Salas</span>
+        <% salas.forEach(sala=> { %>
+            <div class="project">
+                <p>
+                    <%= sala.sala_name %>
+                </p> <!-- Aquí cerré correctamente la etiqueta -->
+                <button onclick="irASala('<%= sala.sala_id %>')">Ir a Sala</button>
+            </div>  
+            <% }) %>
+    </div>
+
 </div>
