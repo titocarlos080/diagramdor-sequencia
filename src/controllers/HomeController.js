@@ -1,4 +1,4 @@
-const { clientPsql } = require("../models/db_psql");
+const { clientPsql } = require("../database/db_psql");
 
 const HomeController = {
     index: (req, res) => {

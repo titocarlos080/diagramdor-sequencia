@@ -1,6 +1,6 @@
 const session = require("express-session");
 const { Document } = require("../models/Document");
-const { clientPsql } = require("../models/db_psql");
+const { clientPsql } = require("../database/db_psql");
 const { Project } = require("../models/Project");
 
 const DocumentController = {

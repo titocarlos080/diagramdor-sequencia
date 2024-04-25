@@ -1,4 +1,4 @@
-const { clientPsql } = require("./db_psql")
+const { clientPsql } = require("../database/db_psql")
 
 class Project {
     constructor(){

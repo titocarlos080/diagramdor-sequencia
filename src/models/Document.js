@@ -1,5 +1,5 @@
-const { clientPsql } = require("./db_psql");
-const { client } = require("./dbmongo");
+const { clientPsql } = require("../database/db_psql");
+const { client } = require("../database/dbmongo");
 
 class Document {
     constructor() {
