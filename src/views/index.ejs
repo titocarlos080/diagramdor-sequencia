@@ -10,28 +10,52 @@
 </head>
 
 <body>
-    <div class="welcome">
+    <header
+        style="display: flex;  justify-content: space-between;border-bottom-left-radius: 15px; border-bottom-right-radius: 12px; background-color: rgb(49, 106, 137);">
+        <h2 for="diagram-animation" style="padding: 5px; color: white;">UML</h2>
         <h1>Bienvenido a nuestra plataforma</h1>
-        <div class="diagram-animation">
-       <div class="formulario-regitro">
+        <button id="openModalBtn" style="height: 50px; margin: 5px;">Iniciar Sesion</button>
 
-        <form action="/register" method="post">
-            
-        </form>
-       </div>
+    </header>
+    <div class="welcome" style="display: flex; flex-wrap: wrap;">
+        <div class="formulario-registro">
+            <form action="" method="post"
+                style="display: flex; flex-direction: column; background: #4a918c; border-top-right-radius: 50px;">
+                <h3>Registrarse</h3>
 
+                <div class="content-input">
+                    <label for="name">Nombre:</label>
+                    <input id="name" required type="text" name="name">
+                </div>
+                <div class="content-input">
+                    <label for="email">Email:</label>
+                    <input id="email" required type="email" name="email">
+                </div>
+                <div class="content-input">
+                    <label for="password">Password:</label>
+                    <input id="password" required type="text" name="password">
+                </div>
+                <input onclick="register()" style="background:#26754b; padding: 10px; border: none;  " type="button"
+                    value="Registrar">
+            </form>
+            <span id="message"></span>
         </div>
-      
-        
-        <button id="openModalBtn">Iniciar Sesion</button>
+        <div class="diagram-animation">
+            <input style="background: #5c5959;" name="name" disabled type="text">
+        </div>
+
+
     </div>
 
 
 
     <div id="myModal" class="modal">
         <div class="modal-content">
+
             <div>
+
                 <span class="close">&times;</span>
+                <h2>INICIAR SESION</h2>
             </div>
             <form class="form-login" action="/login" method="post">
                 <input type="email" name="user_email" id="user_email">
@@ -41,9 +65,9 @@
 
         </div>
     </div>
-    
 
-     <script>
+
+    <script>
         // Obtener el botón para abrir el modal
         var openModalBtn = document.getElementById("openModalBtn");
 
@@ -87,6 +111,71 @@
             diagram.style.left = `${randomX}px`;
             diagram.style.top = `${randomY}px`;
         });
+
+        function register() {
+            var msg = document.getElementById("message");
+            const User = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value
+            };
+
+            fetch("/user/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(User)
+            })
+                .then((resp) => {
+                    if (resp.ok) {
+                        return resp.json(); // Si el servidor devuelve una respuesta JSON
+                    } else {
+                        throw new Error('Error al registrar usuario');
+                    }
+                })
+                .then((data) => {
+                    // Manejar la respuesta del servidor si es necesario
+                    msg.innerText = "Usuario creado satisfactoriamente";
+                    msg.style.background = "green";
+                    msg.style.color = "#FFFF";
+                    modal.style.display = "block";
+                    document.getElementById("user_email").value=User.email
+                    document.getElementById("user_pass").value=User.password
+                    limpiar();
+
+                })
+                .catch((error) => {
+                    // Manejar el error
+                    msg.innerText = "Error. Intente nuevamente!";
+                    msg.style.background = "red";
+                    msg.style.color = "#FFFF";
+                    limpiar();
+                });
+        }
+
+        function limpiar() {
+            document.getElementById("name").value = ""
+            document.getElementById("email").value = ""
+            document.getElementById("password").value = ""
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </script>
 </body>

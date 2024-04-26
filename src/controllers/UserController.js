@@ -9,7 +9,24 @@ const UserController = {
         console.log(user);
 
     },
+     register: (req, res) => {
+       
+        try {
+            const neaUser={
+                userName:req.body.name, 
+                userEmail:req.body.email,
+                userPass:req.body.password
+           }
+           const user = User.create(neaUser)
+           res.status(201).send({user:neaUser})   
+        } catch (error) {
+            res.status(500).send({error:error})   
 
+
+        }  
+
+    },
+    
     
     login: (req, res) => {
         res.render("index", { title: "Diagramador de secuencia" });

@@ -22,6 +22,7 @@ Rutas.post('/logout', HomeController.logout);
 Rutas.post("/save_document",DocumentController.save);
 Rutas.get("/get_document/:projectId",DocumentController.getData);
 
+Rutas.post('/user/register', UserController.register);
 Rutas.post('/salas', SalaController.createSala);
 Rutas.get('/usuarios/:userId/salas', SalaController.getSalas);
 Rutas.get('/usuarios/:userId/salas/:salaId', SalaController.getSala);

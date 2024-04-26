@@ -161,3 +161,19 @@
     color: #f0f0f0;
     
  }
+.formulario-registro{
+    width: 40%;
+}
+
+ .content-input{
+    width: 80%;
+    display: inline;
+    justify-content: left;
+    margin-left: 0;
+    padding: 15px;
+ }
+ .content-input>   input{
+    padding: 10px;
+    width: 100%;
+    outline-color: blue;
+ }
