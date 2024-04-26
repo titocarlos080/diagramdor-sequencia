@@ -34,6 +34,20 @@ socket.on('servidor:cambioSala', (SalaActual) => {
 
   alert("  Te cambiaste a sala " + SalaActual);
 });
+socket.on("servidor:generadoJava",(codigo)=>{
+  alert(codigo)
+})
+socket.on("servidor:generadoCPluss",(codigo)=>{
+  alert(codigo)
+})
+
+socket.on("servidor:generadoPhp",(codigo)=>{
+  alert(codigo)
+})
+socket.on("servidor:generadoJavaScript",(codigo)=>{
+  alert(codigo)
+})
+
 
  
 ///------------------------------------------------------------------------------------------------

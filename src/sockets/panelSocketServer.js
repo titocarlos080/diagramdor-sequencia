@@ -1,3 +1,4 @@
+const { GeneradorCode } = require("../controllers/GenerarCode");
 const { SalaController } = require("../controllers/SalaController");
 
 function getUsersInRoom(roomId, io) {
@@ -34,13 +35,13 @@ const PanelRuta = {
                 }
             });
             socket.on("cliente:conect", (SalaActual, SalaAnterior) => {
-                if (SalaAnterior) {  
+                if (SalaAnterior) {
                     socket.leave(SalaAnterior);
                     console.log(`Usuario ${socket.id} ha salido de la sala "${SalaAnterior}"`);
                 }
-                 socket.join(SalaActual);
+                socket.join(SalaActual);
                 console.log(`Usuario ${socket.id} se ha unido a la sala "${SalaActual}"`);
-                 socket.emit("servidor:cambioSala", SalaActual);
+                socket.emit("servidor:cambioSala", SalaActual);
             });
 
 
@@ -53,6 +54,23 @@ const PanelRuta = {
                 console.log("Mensaje de Cliente", data);
                 // socket.broadcast.emit("servidor:respuesta", { msg });
             });
+            socket.on("cliente:generarJava", (datas) => {
+                const codigo = GeneradorCode.java(JSON.parse(datas))
+                socket.emit("servidor:generadoJava", codigo)
+            })
+            socket.on("cliente:generarCPluss", (datas) => {
+                const codigo = GeneradorCode.cpluss(JSON.parse(datas))
+                socket.emit("servidor:generadoCPluss", codigo)
+            })
+            socket.on("cliente:generarPhp", (datas) => {
+                const codigo = GeneradorCode.php(JSON.parse(datas))
+                socket.emit("servidor:generadoPhp", codigo)
+            })
+            socket.on("cliente:generarJavaScript", (datas) => {
+                const codigo = GeneradorCode.javascript(JSON.parse(datas))
+                socket.emit("servidor:generadoJavaScript", codigo)
+            })
+
 
             socket.on("cliente:datosMovidos", (datosMovidos, SalaActual) => {
                 // Envía los datos movidos solo a los clientes dentro de la sala específica, incluyendo al cliente actual

@@ -1,12 +1,12 @@
 
- 
+
 async function agregarActor() {
     // Iniciar una transacción para agregar un nuevo nodo de bucle
 
     myDiagram.startTransaction("add node");
-    var key = 85;
+    var key = Math.random().toString(32).substring(8);;
 
-    var newname = "new:" + key.toString();
+    var newname = prompt("Actor") || "Actor";
     const newdata = {
         key: key,
         category: "Actor",
@@ -26,9 +26,8 @@ async function agregarActor() {
 }
 async function agregarEntidad() {
     myDiagram.startTransaction("add node");
-    var key = 85;
-
-    var newname = "new:" + key.toString();
+    var key = Math.random().toString(32).substring(8);;
+    var newname = prompt("Entidad") || "Entidad";
     const newdata = {
         key: key,
         category: "Entidad",
@@ -47,9 +46,8 @@ async function agregarEntidad() {
 }
 async function agregarControlador() {
     myDiagram.startTransaction("add node");
-    var key = 85;
-
-    var newname = "new:" + key.toString();
+    var key = Math.random().toString(32).substring(8);;
+    var newname = prompt("Controlador") || "Controlador";
     const newdata = {
         key: key,
         category: "Controlador",
@@ -68,9 +66,9 @@ async function agregarControlador() {
 }
 async function agregarInterface() {
     myDiagram.startTransaction("add node");
-    var key = 85;
+    var key = Math.random().toString(32).substring(8);;
 
-    var newname = "new:" + key.toString();
+    var newname = prompt("Interface") || "Interface";
     const newdata = {
         key: key,
         category: "Interface",
@@ -159,64 +157,38 @@ async function crearProyecto() {
 function exportXML() {
     const data = myDiagram.model.toJson()
 }
-function exportJava() {
-    const data = myDiagram.model.toJson();
-    const model = JSON.parse(data);
-    const nodeDataArray = model.nodeDataArray;
-    const linkDataArray = model.linkDataArray;
-
-    // Objeto para almacenar las relaciones entre nodos
-    const relationships = {};
-
-    // Itera sobre los nodos para obtener los nombres de las clases
-    const classNames = nodeDataArray.map(node => {
-        if (node.text) {
-            return node.text.split(":")[0].trim();
-        } else {
-            return ''; // O cualquier valor predeterminado que desees en caso de que node.text sea undefined
-        }
-    });
-
-    // Crea la clase Java
-    let javaCode = "public class MyClass {\n";
-
-    // Crea instancias y métodos basados en los enlaces entre los nodos
-    linkDataArray.forEach(link => {
-        const fromNode = nodeDataArray.find(node => node.key === link.from);
-        const toNode = nodeDataArray.find(node => node.key === link.to);
-
-        const fromClassName = fromNode.text.split(":")[0].trim();
-        const toClassName = toNode.text.split(":")[0].trim();
-
-        // Registra las relaciones entre clases
-        if (!relationships[fromClassName]) {
-            relationships[fromClassName] = [];
-        }
-        relationships[fromClassName].push(toClassName);
-
-        // Crea el método para la relación entre nodos
-        const methodName = `call${toClassName}`;
-        javaCode += `    public void ${methodName}() {\n`;
-        javaCode += `        ${toClassName} ${toClassName.toLowerCase()} = new ${toClassName}();\n`;
-        javaCode += `        ${toClassName.toLowerCase()}.${methodName}();\n`;
-        javaCode += `    }\n`;
-    });
-
-    // Crea instancias de clases sin relaciones entrantes
-    classNames.forEach(className => {
-        if (!relationships[className]) {
-            javaCode += `    ${className} ${className.toLowerCase()} = new ${className}();\n`;
-        }
-    });
-
-    javaCode += "}\n";
-
-    console.log(javaCode);
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+async function exportJava() {
+      var datas =  myDiagram.model.toJson() ;
+   socket.emit("cliente:generarJava",datas) ;
 }
 
+ 
+
+
+ 
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
 function exportC() {
-
+    var datas =  myDiagram.model.toJson() ;
+    socket.emit("cliente:generarCPluss",datas) ;
 }
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+function exportPhp() {
+    var datas =  myDiagram.model.toJson() ;
+    socket.emit("cliente:generarPhp",datas) ;
+}
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+function exportJavaScript() {
+    var datas =  myDiagram.model.toJson() ;
+    socket.emit("cliente:generarJavaScript",datas) ;
+}
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+
 
 async function guardarMongo(data, nombreProyecto) {
     const datas = {
