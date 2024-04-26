@@ -33,21 +33,33 @@ socket.on('servidor:confirmacion', (data) => {
 socket.on('servidor:cambioSala', (SalaActual) => {
 
   alert("  Te cambiaste a sala " + SalaActual);
+  
 });
 socket.on("servidor:generadoJava",(codigo)=>{
-  alert(codigo)
+  imprimir(codigo,"codigo_java")
 })
 socket.on("servidor:generadoCPluss",(codigo)=>{
-  alert(codigo)
+  imprimir(codigo,"codigo_C")
 })
 
 socket.on("servidor:generadoPhp",(codigo)=>{
-  alert(codigo)
+  imprimir(codigo,"codigo_Php")
 })
 socket.on("servidor:generadoJavaScript",(codigo)=>{
-  alert(codigo)
+imprimir(codigo,"codigo_javascript")
 })
 
+function imprimir(codigo,nombre){
+  var blob = new Blob([codigo], { type: "text/plain" });
+  var link = document.createElement("a");
+link.href = window.URL.createObjectURL(blob);
+link.download = nombre+".txt"; // Nombre del archivo
+
+// Simular el clic en el enlace para iniciar la descarga
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+}
 
  
 ///------------------------------------------------------------------------------------------------
