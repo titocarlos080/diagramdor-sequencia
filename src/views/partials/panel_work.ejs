@@ -21,7 +21,7 @@
                         "undoManager.isEnabled": true,
                         "animationManager.isEnabled": false,
 
-                        
+
                     });
 
             // when the document is modified, add a "*" to the title and enable the "Save" button
@@ -243,6 +243,57 @@
                         new go.Binding("height", "duration", computeLifelineHeight))
                 )
             );
+
+            myDiagram.nodeTemplateMap.add("loop",
+                $(go.Node, "Auto",
+                    { selectable: true, resizable: true },
+                    $(go.Shape, "Rectangle",
+                        { fill: "transparent", stroke: "black", margin: 0 },
+                        new go.Binding("width", "width").makeTwoWay(),
+                        new go.Binding("height", "height").makeTwoWay()
+                    ),
+                    $(go.TextBlock,
+                        { margin: new go.Margin(1, 0, 0, 0), editable: true, font: "bold 12px sans-serif", textAlign: "left", alignment: go.Spot.TopLeft },
+                        new go.Binding("text", "text"),
+                        new go.Binding("width", "desiredWidth").makeTwoWay()
+                    ), 
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify)
+                )
+            ); 
+             myDiagram.nodeTemplateMap.add("if",
+                $(go.Node, "Auto",
+                    { selectable: true, resizable: true },
+                    $(go.Shape, "Rectangle",
+                        { fill: "transparent", stroke: "black", margin: 0 },
+                        new go.Binding("width", "width").makeTwoWay(),
+                        new go.Binding("height", "height").makeTwoWay()
+                    ),
+                    $(go.TextBlock,
+                        { margin: new go.Margin(1, 0, 0, 0), editable: true, font: "bold 12px sans-serif", textAlign: "left", alignment: go.Spot.TopLeft },
+                        new go.Binding("text", "text"),
+                        new go.Binding("width", "desiredWidth").makeTwoWay()
+                    ),
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify)
+                )
+            );
+      myDiagram.nodeTemplateMap.add("else",
+                $(go.Node, "Auto",
+                    { selectable: true, resizable: true },
+                    $(go.Shape, "Rectangle",
+                        { fill: "transparent", stroke: "black", margin: 0 },
+                        new go.Binding("width", "width").makeTwoWay(),
+                        new go.Binding("height", "height").makeTwoWay()
+                    ),
+                    $(go.TextBlock,
+                        { margin: new go.Margin(1, 0, 0, 0), editable: true, font: "bold 12px sans-serif", textAlign: "left", alignment: go.Spot.TopLeft },
+                        new go.Binding("text", "text"),
+                        new go.Binding("width", "desiredWidth").makeTwoWay()
+                    ),
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify)
+                )
+            );
+
+
 
 
 

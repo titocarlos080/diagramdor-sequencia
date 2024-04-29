@@ -85,6 +85,58 @@ async function agregarInterface() {
 
     await sendDataToServer(myDiagram.model.toJson());
 }
+async function agregarLoop() {
+    myDiagram.startTransaction("add node");
+    var key = Math.random().toString(32).substring(8);;
+    var newdata = {
+        key: key,
+        category:"loop" ,
+        loc: "80 0", 
+        text: "loop", 
+        ciclo: "es un ciclo", 
+       
+    };
+    myDiagram.model.addNodeData(newdata); 
+    myDiagram.commitTransaction("add node");
+    //myDiagram.commitTransaction("addLoopNode");
+    myDiagram.updateAllTargetBindings();
+
+    await sendDataToServer(myDiagram.model.toJson());
+}
+async function agregarCondicional() {
+    myDiagram.startTransaction("add node");
+    var key = Math.random().toString(32).substring(8);;
+    var newdata = {
+        key: key,
+        category:"if" ,
+        loc: "80 0", 
+        text: "if", 
+       
+    };
+    myDiagram.model.addNodeData(newdata); 
+    myDiagram.commitTransaction("add node");
+    //myDiagram.commitTransaction("addLoopNode");
+    myDiagram.updateAllTargetBindings();
+
+    await sendDataToServer(myDiagram.model.toJson());
+}
+async function agregarCondicionalElse() {
+    myDiagram.startTransaction("add node");
+    var key = Math.random().toString(32).substring(8);;
+    var newdata = {
+        key: key,
+        category:"else" ,
+        loc: "80 0", 
+        text: "else", 
+       
+    };
+    myDiagram.model.addNodeData(newdata); 
+    myDiagram.commitTransaction("add node");
+    //myDiagram.commitTransaction("addLoopNode");
+    myDiagram.updateAllTargetBindings();
+
+    await sendDataToServer(myDiagram.model.toJson());
+}
 
 function abrirProyecto() {
     // Crea un nuevo elemento de entrada de archivo
@@ -160,31 +212,31 @@ function exportXML() {
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 async function exportJava() {
-      var datas =  myDiagram.model.toJson() ;
-   socket.emit("cliente:generarJava",datas) ;
+    var datas = myDiagram.model.toJson();
+    socket.emit("cliente:generarJava", datas);
 }
 
- 
 
 
- 
+
+
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
 function exportC() {
-    var datas =  myDiagram.model.toJson() ;
-    socket.emit("cliente:generarCPluss",datas) ;
+    var datas = myDiagram.model.toJson();
+    socket.emit("cliente:generarCPluss", datas);
 }
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
 function exportPhp() {
-    var datas =  myDiagram.model.toJson() ;
-    socket.emit("cliente:generarPhp",datas) ;
+    var datas = myDiagram.model.toJson();
+    socket.emit("cliente:generarPhp", datas);
 }
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
 function exportJavaScript() {
-    var datas =  myDiagram.model.toJson() ;
-    socket.emit("cliente:generarJavaScript",datas) ;
+    var datas = myDiagram.model.toJson();
+    socket.emit("cliente:generarJavaScript", datas);
 }
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
