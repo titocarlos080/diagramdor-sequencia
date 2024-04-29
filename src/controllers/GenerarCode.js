@@ -64,7 +64,7 @@ const GeneradorCode = {
                 const fromKey = link.from;
                 const toKey = link.to;
                 const methodName = link.text;
-                clases[fromKey].methods.push({ target: toKey, name: methodName });
+                clases[toKey].methods.push({ target: toKey, name: methodName });
             }
         });
 
@@ -95,7 +95,7 @@ const GeneradorCode = {
                 const fromKey = link.from;
                 const toKey = link.to;
                 const methodName = link.text;
-                clases[fromKey].methods.push({ target: toKey, name: methodName });
+                clases[toKey].methods.push({ target: toKey, name: methodName });
             }
         });
 
@@ -126,7 +126,7 @@ const GeneradorCode = {
                 const fromKey = link.from;
                 const toKey = link.to;
                 const methodName = link.text;
-                clases[fromKey].methods.push({ target: toKey, name: methodName });
+                clases[toKey].methods.push({ target: toKey, name: methodName });
             }
         });
 
@@ -156,7 +156,7 @@ const GeneradorCode = {
                 const fromKey = link.from;
                 const toKey = link.to;
                 const methodName = link.text;
-                clases[fromKey].methods.push({ target: toKey, name: methodName });
+                clases[toKey].methods.push({ target: toKey, name: methodName });
             }
         });
 
