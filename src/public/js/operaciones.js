@@ -207,8 +207,151 @@ async function crearProyecto() {
 
 }
 function exportXML() {
-    const data = myDiagram.model.toJson()
+    const data = generateXMI(myDiagram.model.toJson()) ;
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${nombreProyecto}.json`;
+    a.style.display = 'none';
+
+    document.body.appendChild(a);
+    a.click();
+
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+
 }
+
+function generateXMI(  data) {
+    const { nodeDataArray, linkDataArray } =JSON.parse(data) ;
+
+    let xmi = `<?xml version="1.0" encoding="UTF-8"?>
+    <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:thecustomprofile="http://www.sparxsystems.com/profiles/thecustomprofile/1.0">
+    <xmi:Documentation exporter="Enterprise Architect" exporterVersion="6.5"/>
+    `;
+
+    // Agregar paquetes y colaboraciones
+    xmi += `
+        <packagedElement xmi:type="uml:Package" name="MainPackage">`;
+
+    // Agregar colaboraciones y comportamientos
+    nodeDataArray.forEach(node => {
+        xmi += `
+            <packagedElement xmi:type="uml:Collaboration" name="${node.text}">
+                <ownedBehavior xmi:type="uml:Interaction" name="${node.text}_Interaction">`;
+
+        // Agregar un lifeline para cada nodo
+        xmi += `
+                    <lifeline xmi:type="uml:Lifeline" name="${node.text}" represents="${node.key}"/>`;
+
+        xmi += `
+                </ownedBehavior>
+            </packagedElement>`;
+    });
+
+    // Agregar mensajes entre lifelines
+    linkDataArray.forEach(link => {
+        xmi += `
+            <message xmi:type="uml:Message" name="${link.text}" sendEvent="send_${link.from}" receiveEvent="recv_${link.to}"/>`;
+    });
+
+    xmi += `
+        </packagedElement>
+    </uml:Model>
+</xmi:XMI>`;
+
+    return xmi;
+}
+
+ 
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+function importXML() {
+      // Crea un nuevo elemento de entrada de archivo
+      var fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.XML';
+      fileInput.style.display = 'none'; // Oculta el elemento de entrada de archivo
+  
+      // Agrega el elemento al documento
+      document.body.appendChild(fileInput);
+  
+      fileInput.addEventListener('change', function (event) {
+          var selectedFile = event.target.files[0]; // Obtiene el archivo seleccionado
+          // Crea un nuevo lector de archivos
+          var reader = new FileReader();
+          // Define la función que se ejecutará cuando se complete la lectura del archivo
+          reader.onload = function (event) {
+              var contenido = event.target.result; // Contenido del archivo
+              console.log(contenido); // Muestra el contenido del archivo en la consola
+               myDiagram.model = go.Model.fromJson( parseXMI(contenido) );
+
+              // Aquí puedes hacer lo que necesites con el contenido del archivo
+          };
+          // Lee el contenido del archivo como texto
+          reader.readAsText(selectedFile);
+      });
+      // Simula un clic en el elemento de entrada de archivo
+      fileInput.click();
+}
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+function parseXMI(xmiString) {
+    const model = {
+        class: "GraphLinksModel",
+        nodeDataArray: [],
+        linkDataArray: []
+    };
+
+    // Extraer lifelines
+    const lifelineRegex = /<lifeline xmi:type="uml:Lifeline" (.*?)\/>/g;
+    let match;
+    while ((match = lifelineRegex.exec(xmiString)) !== null) {
+        const attributes = match[1];
+        const idMatch = attributes.match(/xmi:id="(.*?)"/);
+        const nameMatch = attributes.match(/name="(.*?)"/);
+        if (idMatch && nameMatch) {
+            model.nodeDataArray.push({
+                key: idMatch[1],
+                category: "Lifeline",
+                text: nameMatch[1],
+                isGroup: false,
+                loc: "0 0"  // Default location
+            });
+        }
+    }
+
+    // Extraer mensajes
+    const messageRegex = /<message (.*?)\/>/g;
+    while ((match = messageRegex.exec(xmiString)) !== null) {
+        const attributes = match[1];
+        const nameMatch = attributes.match(/name="(.*?)"/);
+        const sendEventMatch = attributes.match(/sendEvent="(.*?)"/);
+        const receiveEventMatch = attributes.match(/receiveEvent="(.*?)"/);
+        if (nameMatch && sendEventMatch && receiveEventMatch) {
+            model.linkDataArray.push({
+                from: sendEventMatch[1],
+                to: receiveEventMatch[1],
+                text: nameMatch[1]
+            });
+        }
+    }
+
+    return model;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 async function exportJava() {
